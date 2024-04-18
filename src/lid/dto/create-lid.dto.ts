@@ -10,10 +10,10 @@ export class CreateLidDto {
   phone_number: string;
 
   @Column()
-  target_id: string;
+  target_id: Object;
 
   @Column()
-  lid_stage_id: string;
+  lid_stage_id: Object;
 
   @Column()
   test_date: string;
@@ -31,5 +31,5 @@ export class CreateLidDto {
   lid_status_id: Object;
 
   @Column()
-  cancel_reson_id: string;
+  cancel_reson_id: Object;
 }
