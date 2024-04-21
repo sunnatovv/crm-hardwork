@@ -11,6 +11,9 @@ import { LidStatus } from './lid_status/entities/lid_status.entity';
 import { ReasonLid } from './reason_lid/entities/reason_lid.entity';
 import { Target } from './target/entities/target.entity';
 import { Lid } from './lid/entities/lid.entity';
+import { RoleModule } from './role/role.module';
+import { StuffRoleModule } from './stuff_role/stuff_role.module';
+import { StuffModule } from './stuff/stuff.module';
 
 @Module({
   imports: [
@@ -30,6 +33,9 @@ import { Lid } from './lid/entities/lid.entity';
     ReasonLidModule,
     TargetModule,
     LidModule,
+    RoleModule,
+    StuffRoleModule,
+    StuffModule,
   ],
 
   controllers: [],
