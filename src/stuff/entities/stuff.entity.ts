@@ -1,10 +1,20 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { StuffRole } from '../../stuff_role/entities/stuff_role.entity';
+import { GroupStuff } from '../../group-stuff/entities/group-stuff.entity';
 
 @Entity()
 export class Stuff {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @OneToMany(() => GroupStuff, (x) => x.stuff_id)
+  stuff: GroupStuff;
 
   @Column()
   first_name: string;

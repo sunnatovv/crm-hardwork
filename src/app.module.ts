@@ -14,6 +14,25 @@ import { Lid } from './lid/entities/lid.entity';
 import { RoleModule } from './role/role.module';
 import { StuffRoleModule } from './stuff_role/stuff_role.module';
 import { StuffModule } from './stuff/stuff.module';
+import { BranchModule } from './branch/branch.module';
+import { PaymentModule } from './payment/payment.module';
+import { StudentsModule } from './students/students.module';
+import { LessonModule } from './lesson/lesson.module';
+import { GroupModule } from './group/group.module';
+import { Group } from './group/entities/group.entity';
+import { Stuff } from './stuff/entities/stuff.entity';
+import { Payment } from './payment/entities/payment.entity';
+import { Branch } from './branch/entities/branch.entity';
+import { Lesson } from './lesson/entities/lesson.entity';
+import { Role } from './role/entities/role.entity';
+import { Student } from './students/entities/student.entity';
+import { StuffRole } from './stuff_role/entities/stuff_role.entity';
+import { GroupStuffModule } from './group-stuff/group-stuff.module';
+import { GroupStuff } from './group-stuff/entities/group-stuff.entity';
+import { StudentGroupModule } from './student-group/student-group.module';
+import { StudentGroup } from './student-group/entities/student-group.entity';
+import { StudentLessonModule } from './student-lesson/student-lesson.module';
+import { StudentLesson } from './student-lesson/entities/student-lesson.entity';
 
 @Module({
   imports: [
@@ -25,7 +44,24 @@ import { StuffModule } from './stuff/stuff.module';
       username: 'postgres',
       password: 'root',
       database: 'hard-work',
-      entities: [Stage, LidStatus, ReasonLid, Target, Lid],
+      entities: [
+        Stage,
+        LidStatus,
+        ReasonLid,
+        Target,
+        Lid,
+        Payment,
+        Branch,
+        Lesson,
+        Role,
+        Student,
+        Stuff,
+        StuffRole,
+        Group,
+        GroupStuff,
+        StudentGroup,
+        StudentLesson
+      ],
       synchronize: true,
     }),
     StageModule,
@@ -36,6 +72,14 @@ import { StuffModule } from './stuff/stuff.module';
     RoleModule,
     StuffRoleModule,
     StuffModule,
+    BranchModule,
+    PaymentModule,
+    StudentsModule,
+    LessonModule,
+    GroupModule,
+    GroupStuffModule,
+    StudentGroupModule,
+    StudentLessonModule,
   ],
 
   controllers: [],

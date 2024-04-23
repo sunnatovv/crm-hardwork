@@ -3,6 +3,7 @@ import { StageService } from './stage.service';
 import { StageController } from './stage.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Stage } from './entities/stage.entity';
+import { Group } from '../group/entities/group.entity';
 
 @Module({
   imports:[TypeOrmModule.forFeature([Stage])],
