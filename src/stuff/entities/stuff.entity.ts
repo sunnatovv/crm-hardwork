@@ -1,23 +1,14 @@
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { StuffRole } from '../../stuff_role/entities/stuff_role.entity';
-import { GroupStuff } from '../../group-stuff/entities/group-stuff.entity';
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Role } from '../../role/entities/role.entity';
+import { Group } from '../../group/entities/group.entity';
 
 @Entity()
 export class Stuff {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToMany(() => GroupStuff, (x) => x.stuff_id)
-  stuff: GroupStuff;
-
   @Column()
-  first_name: string;
+  fist_name: string;
 
   @Column()
   last_name: string;
@@ -32,8 +23,13 @@ export class Stuff {
   password: string;
 
   @Column()
-  is_active: string;
+  is_active: boolean;
 
-  @ManyToOne(() => StuffRole, (stuff) => stuff.stuff_id)
-  stuff_role: StuffRole;
+  @ManyToMany(() => Role)
+  @JoinTable()
+  roles: Role[];
+
+  @ManyToMany(() => Group)
+  @JoinTable()
+  groups: Group[];
 }

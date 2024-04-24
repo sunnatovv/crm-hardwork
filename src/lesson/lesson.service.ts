@@ -10,23 +10,28 @@ export class LessonService {
   constructor(
     @InjectRepository(Lesson) private readonly lessonRepo: Repository<Lesson>,
   ) {}
-  create(createLessonDto: CreateLessonDto) {
+
+  async create(createLessonDto: CreateLessonDto) {
     return this.lessonRepo.save(createLessonDto);
   }
 
-  findAll() {
-    return this.lessonRepo.find();
+  async findAll() {
+    return this.lessonRepo.find({ relations: { group_id: true } });
   }
 
-  findOne(id: number) {
-    return this.lessonRepo.findOne({ where: { id } });
+  async findOne(id: number) {
+    return this.lessonRepo.findOneBy({ id });
   }
 
-  update(id: number, updateLessonDto: UpdateLessonDto) {
-    return this.lessonRepo.update({ id }, updateLessonDto);
+  async update(id: number, updateLessonDto: UpdateLessonDto) {
+    await this.lessonRepo.update({ id }, updateLessonDto);
+    return await this.findOne(id);
   }
 
-  remove(id: number) {
-    return this.lessonRepo.delete({ id });
+  async remove(id: number) {
+    await this.lessonRepo.delete({ id });
+    return {
+      message: "successfully removed"
+    }
   }
 }

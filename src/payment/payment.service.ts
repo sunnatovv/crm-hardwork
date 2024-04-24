@@ -11,23 +11,28 @@ export class PaymentService {
     @InjectRepository(Payment)
     private readonly paymentRepo: Repository<Payment>,
   ) {}
-  create(createPaymentDto: CreatePaymentDto) {
+
+  async create(createPaymentDto: CreatePaymentDto) {
     return this.paymentRepo.save(createPaymentDto);
   }
 
-  findAll() {
-    return this.paymentRepo.find();
+  async findAll() {
+    return this.paymentRepo.find({ relations: { student_id: true } });
   }
 
-  findOne(id: number) {
-    return this.paymentRepo.findOne({ where: { id } });
+  async findOne(id: number) {
+    return this.paymentRepo.findOneBy({ id });
   }
 
-  update(id: number, updatePaymentDto: UpdatePaymentDto) {
-    return this.paymentRepo.update({ id }, updatePaymentDto);
+  async update(id: number, updatePaymentDto: UpdatePaymentDto) {
+    await this.paymentRepo.update({ id }, updatePaymentDto);
+    return await this.findOne(id);
   }
 
-  remove(id: number) {
-    return this.paymentRepo.delete({ id });
+  async remove(id: number) {
+    await this.paymentRepo.delete({ id });
+    return {
+      message: 'succesfully removed',
+    };
   }
 }

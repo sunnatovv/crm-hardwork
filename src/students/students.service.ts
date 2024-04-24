@@ -11,23 +11,28 @@ export class StudentsService {
     @InjectRepository(Student)
     private readonly studentRepo: Repository<Student>,
   ) {}
-  create(createStudentDto: CreateStudentDto) {
+
+  async create(createStudentDto: CreateStudentDto) {
     return this.studentRepo.save(createStudentDto);
   }
 
-  findAll() {
+  async findAll() {
     return this.studentRepo.find();
   }
 
-  findOne(id: number) {
-    return this.studentRepo.findOne({ where: { id } });
+  async findOne(id: number) {
+    return this.studentRepo.findOneBy({ id });
   }
 
-  update(id: number, updateStudentDto: UpdateStudentDto) {
-    return this.studentRepo.update({ id }, updateStudentDto);
+  async update(id: number, updateStudentDto: UpdateStudentDto) {
+    await this.studentRepo.update({ id }, updateStudentDto);
+    return await this.findOne(id);
   }
 
-  remove(id: number) {
-    return this.studentRepo.delete({ id });
+  async remove(id: number) {
+    await this.studentRepo.delete({ id });
+    return {
+      message: 'successfully removed',
+    };
   }
 }

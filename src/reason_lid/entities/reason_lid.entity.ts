@@ -6,7 +6,7 @@ export class ReasonLid {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   reason_lid: string;
 
   @OneToMany(() => Lid, (lid) => lid.cancel_reason_id)

@@ -10,23 +10,32 @@ export class RoleService {
   constructor(
     @InjectRepository(Role) private readonly roleRepo: Repository<Role>,
   ) {}
-  create(createRoleDto: CreateRoleDto) {
+
+  async create(createRoleDto: CreateRoleDto) {
     return this.roleRepo.save(createRoleDto);
   }
 
-  findAll() {
-    return this.roleRepo.find();
+  async findAll() {
+    return this.roleRepo.find({ relations: { stuffs: true } });
   }
 
-  findOne(id: number) {
-    return this.roleRepo.findBy({ id });
+  async getRoleByName(name: string) {
+    return this.roleRepo.findOneBy({ name });
   }
 
-  update(id: number, updateRoleDto: UpdateRoleDto) {
-    return this.roleRepo.update({ id }, updateRoleDto);
+  async findOne(id: number) {
+    return this.roleRepo.findOneBy({ id });
   }
 
-  remove(id: number) {
-    return this.roleRepo.delete({ id });
+  async update(id: number, updateRoleDto: UpdateRoleDto) {
+    await this.roleRepo.update({ id }, updateRoleDto);
+    return await this.findOne(id);
+  }
+
+  async remove(id: number) {
+    await this.roleRepo.delete({ id });
+    return {
+      message: 'successfully removed',
+    };
   }
 }

@@ -9,25 +9,30 @@ import { Repository } from 'typeorm';
 export class ReasonLidService {
   constructor(
     @InjectRepository(ReasonLid)
-    private readonly resLidRepo: Repository<ReasonLid>,
+    private readonly reasonLidRepo: Repository<ReasonLid>,
   ) {}
+
   create(createReasonLidDto: CreateReasonLidDto) {
-    return this.resLidRepo.save(createReasonLidDto);
+    return this.reasonLidRepo.save(createReasonLidDto)
   }
 
   findAll() {
-    return this.resLidRepo.find();
+    return this.reasonLidRepo.find({
+      relations: {
+        lids: true,
+      },
+    });
   }
 
   findOne(id: number) {
-    return this.resLidRepo.findBy({ id });
+    return this.reasonLidRepo.findOneBy({id})
   }
 
   update(id: number, updateReasonLidDto: UpdateReasonLidDto) {
-    return this.resLidRepo.update({ id }, updateReasonLidDto);
+    return this.reasonLidRepo.update({ id }, updateReasonLidDto);
   }
 
   remove(id: number) {
-    return this.resLidRepo.delete({ id });
+    return this.reasonLidRepo.delete({ id })
   }
 }

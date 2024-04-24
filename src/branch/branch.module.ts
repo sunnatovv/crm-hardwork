@@ -3,10 +3,11 @@ import { BranchService } from './branch.service';
 import { BranchController } from './branch.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Branch } from './entities/branch.entity';
+import { BranchResolver } from './branch.resolver';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Branch])],
+  imports: [TypeOrmModule.forFeature([Branch])],
   controllers: [BranchController],
-  providers: [BranchService],
+  providers: [BranchService, BranchResolver],
 })
 export class BranchModule {}

@@ -10,23 +10,28 @@ export class BranchService {
   constructor(
     @InjectRepository(Branch) private readonly branchRepo: Repository<Branch>,
   ) {}
-  create(createBranchDto: CreateBranchDto) {
-    return this.branchRepo.save(createBranchDto);
+
+  async create(createBranchDto: CreateBranchDto) {
+    return this.branchRepo.save(createBranchDto)
   }
 
-  findAll() {
-    return this.branchRepo.find();
+  async findAll() {
+    return this.branchRepo.find({ relations: { groups: true } })
   }
 
-  findOne(id: number) {
-    return this.branchRepo.findOne({ where: { id } });
+  async findOne(id: number) {
+    return this.branchRepo.findOneBy({ id })
   }
 
-  update(id: number, updateBranchDto: UpdateBranchDto) {
-    return this.branchRepo.update({ id }, updateBranchDto);
+  async update(id: number, updateBranchDto: UpdateBranchDto) {
+    await this.branchRepo.update({ id }, updateBranchDto)
+    return await this.findOne(id)
   }
 
-  remove(id: number) {
-    return this.branchRepo.delete({ id });
+  async remove(id: number) {
+    await this.branchRepo.delete({ id })
+    return {
+      message: "successfully removed"
+    }
   }
 }

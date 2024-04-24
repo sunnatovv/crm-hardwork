@@ -9,25 +9,30 @@ import { Repository } from 'typeorm';
 export class LidStatusService {
   constructor(
     @InjectRepository(LidStatus)
-    private readonly lidstatusRepo: Repository<LidStatus>,
+    private readonly lidStatusRepo: Repository<LidStatus>,
   ) {}
+
   create(createLidStatusDto: CreateLidStatusDto) {
-    return this.lidstatusRepo.save(createLidStatusDto);
+    return this.lidStatusRepo.save(createLidStatusDto);
   }
 
   findAll() {
-    return this.lidstatusRepo.find();
+    return this.lidStatusRepo.find({
+      relations: {
+        lids: true,
+      },
+    });
   }
 
   findOne(id: number) {
-    return this.lidstatusRepo.findBy({ id });
+    return this.lidStatusRepo.findOneBy({ id });
   }
 
   update(id: number, updateLidStatusDto: UpdateLidStatusDto) {
-    return this.lidstatusRepo.update({ id }, updateLidStatusDto);
+    return this.lidStatusRepo.update({ id }, updateLidStatusDto);
   }
 
   remove(id: number) {
-    return this.lidstatusRepo.delete({ id });
+    return this.lidStatusRepo.delete({ id });
   }
 }

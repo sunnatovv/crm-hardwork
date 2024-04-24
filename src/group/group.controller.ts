@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { GroupService } from './group.service';
 import { CreateGroupDto } from './dto/create-group.dto';
 import { UpdateGroupDto } from './dto/update-group.dto';
+import { ActivateGroupDto } from './dto/activate.dto';
 
 @Controller('group')
 export class GroupController {
@@ -30,5 +31,10 @@ export class GroupController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.groupService.remove(+id);
+  }
+
+  @Post('activate')
+  async avtivateGroup(@Body() activateGroupDto: ActivateGroupDto) {
+    return this.groupService.activateGroup(activateGroupDto);
   }
 }

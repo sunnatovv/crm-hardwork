@@ -6,9 +6,9 @@ export class LidStatus {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   status: string;
 
-  @OneToMany(() => Lid, (LidStatus) => LidStatus.lid_status_id)
+  @OneToMany(() => Lid, (lid) => lid.lid_status_id)
   lids: Lid[];
 }

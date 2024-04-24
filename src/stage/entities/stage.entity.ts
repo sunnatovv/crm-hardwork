@@ -7,13 +7,12 @@ export class Stage {
   @PrimaryGeneratedColumn()
   id: number;
 
-
-  @OneToMany(() => Group, (x) => x.group_stage_id)
-  stages: Group[];
-
-  @Column()
+  @Column({ nullable: false })
   name: string;
 
   @OneToMany(() => Lid, (lid) => lid.lid_stage_id)
   lids: Lid[];
+
+  @OneToMany(() => Group, (group) => group.group_stage_id)
+  groups: Group[];
 }

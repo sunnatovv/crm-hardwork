@@ -10,16 +10,24 @@ export class LidService {
   constructor(
     @InjectRepository(Lid) private readonly lidRepo: Repository<Lid>,
   ) {}
+
   create(createLidDto: CreateLidDto) {
     return this.lidRepo.save(createLidDto);
   }
 
   findAll() {
-    return this.lidRepo.find();
+    return this.lidRepo.find({
+      relations: {
+        cancel_reason_id: true,
+        lid_stage_id: true,
+        lid_status_id: true,
+        target_id: true,
+      },
+    });
   }
 
   findOne(id: number) {
-    return this.lidRepo.findBy({ id });
+    return this.lidRepo.findOneBy({ id });
   }
 
   update(id: number, updateLidDto: UpdateLidDto) {

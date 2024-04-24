@@ -4,8 +4,9 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
-  await app.listen(3000, () => {
-    console.log('server 3000 chi portda ishga tushdi');
+  const PORT = 3000;
+  await app.listen(PORT, (): void => {
+    console.log(`http://127.0.0.1:${PORT}`);
   });
 }
 bootstrap();

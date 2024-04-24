@@ -11,16 +11,22 @@ export class StageService {
     @InjectRepository(Stage)
     private readonly stageRepo: Repository<Stage>,
   ) {}
+
   create(createStageDto: CreateStageDto) {
     return this.stageRepo.save(createStageDto);
   }
 
   findAll() {
-    return this.stageRepo.find();
+    return this.stageRepo.find({
+      relations: {
+        lids: true,
+        groups: true,
+      },
+    });
   }
 
   findOne(id: number) {
-    return this.stageRepo.findBy({ id });
+    return this.stageRepo.findOneBy({ id });
   }
 
   update(id: number, updateStageDto: UpdateStageDto) {

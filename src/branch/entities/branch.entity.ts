@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Group } from "../../group/entities/group.entity";
 
 @Entity()
 export class Branch {
@@ -10,7 +11,10 @@ export class Branch {
 
   @Column()
   address: string;
-  
+
   @Column()
-  call_center: string;
+  call_number: string;
+
+  @OneToMany(() => Group, (group) => group.group_branch_id)
+  groups: Group[];
 }
